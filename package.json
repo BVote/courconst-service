@@ -1,5 +1,5 @@
 {
-  "name": "coursconsti-service",
+  "name": "coursconst-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BVote/ravip-service.git"
+    "url": "git+https://github.com/BVote/coursconst-service.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BVote/ravip-service/issues"
+    "url": "https://github.com/BVote/coursconst-service/issues"
   },
-  "homepage": "https://github.com/BVote/ravip-service#readme",
+  "homepage": "https://github.com/BVote/coursconst-service#readme",
   "dependencies": {
     "apollo-server-express": "^2.25.1",
     "bcrypt": "^5.0.1",
