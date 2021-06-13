@@ -3,11 +3,6 @@ const gravatar = require("../utils/gravatar");
 const { getDummyCandidate } = require("../utils/dummy");
 Faker.locale = "fr";
 
-/***************************************************************************************
- * We fake all mutation parameters to avoid passing parameters to mutations each time
- * this means that the required symbole "!" has been removed for the moment at GQL side
- * but not at mongoose side. In fact, playground args are accessible through "args"
- ***************************************************************************************/
 
 module.exports = {
     createCandidate: async (parents, args, { models }) => {
