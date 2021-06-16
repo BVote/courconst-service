@@ -23,7 +23,7 @@ const apolloServer = new ApolloServer(
     {
         typeDefs,
         resolvers,
-        validation: [depthLimit(5), createComplexityLimitRule(1000)],
+        validation: [   (5), createComplexityLimitRule(1000)],
         context: async ({ req }) => {
             return { models };
             // return ;
@@ -34,7 +34,7 @@ const apolloServer = new ApolloServer(
 
 database.connect(DB_STRING);
 
-apolloServer.applyMiddleware({ app, path: "/ravip" });
+apolloServer.applyMiddleware({ app, path: "/courconst" });
 app.listen({ port:PORT }, () => {
-    console.log(`🚀 Ravip.service ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
+    console.log(`🚀 Courconst.service ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
 });

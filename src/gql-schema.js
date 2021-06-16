@@ -1,20 +1,26 @@
 const { gql } = require("apollo-server-express");
 
-
-// required clauses removed for the moment
-
 const typeDefs = gql`
+    # "required" clauses is removed intentionnally to facilitate testing
     scalar DateTime
     
-    type Candidate {
-        id: ID!
+    # union Sponsor = Deputy | Mayor
+
+    # type Deputy {
+    #     identity: Citizen
+    # }
+
+    # type Mayor {
+    #     identity: Citizen
+    # }
+
+    type Citizen {
         cid: ID!
         firstnames: [String]
         lastnames: [String]
         emails: [String]
-        mother: String
-        father: String
         telephones: [String]
+        photo: [String]
         birthdate: DateTime
         birthplace: String
         address: String
@@ -22,12 +28,20 @@ const typeDefs = gql`
         updatedAt: DateTime!
     }
 
+    type Candidate {
+        id: ID!
+        lead: Citizen!
+        assistant: Citizen!
+        # party: String!
+        # sponsors: [Sponsor]!
+    }
+
     type Query {
         ipsum: String
-        getCandidateByCid(cid:ID!): Candidate!
-        getCandidateById(id: ID!): Candidate!
-        getCandidateByName(name: String!): Candidate!
-        getCandidateByEmail(email: String!): Candidate!
+        getCandidateById(id:ID!): Candidate!
+        # getCandidateByCid(cid:ID!): Candidate!
+        # getCandidateByName(name: String!): Candidate!
+        # getCandidateByEmail(email: String!): Candidate!
         getCandidates: [Candidate]!
     }
 
