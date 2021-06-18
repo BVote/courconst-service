@@ -1,5 +1,5 @@
 module.exports = {
-    ipsum: () => "Lorem ipsum dolores",
+    getLoremIpsum: () => "Lorem ipsum dolores",
 
     getCandidateById: async (parents, args, { models }) => {
         return await models.Candidate.findById({id: args.id});

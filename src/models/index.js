@@ -1,6 +1,5 @@
 const Candidate = require("./candidate");
-const Citizen = require("./citizen");
 
-const models = { Candidate, Citizen };
+const models = { Candidate };
 
 module.exports = models;

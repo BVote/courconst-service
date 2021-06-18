@@ -3,9 +3,9 @@ const gravatar = require("./gravatar");
 Faker.locale = "fr";
 const { Types } = require("mongoose");
 
-// const fatherMongoId = "60c4f84d273a31bba7b0806a";
 const emailDomainName = "example.com";
 const genders = ["male", "female"];
+
 
 
 module.exports = {

@@ -20,7 +20,7 @@ const typeDefs = gql`
         lastnames: [String]
         emails: [String]
         telephones: [String]
-        photo: [String]
+        photos: [String]
         birthdate: DateTime
         birthplace: String
         address: String
@@ -36,27 +36,51 @@ const typeDefs = gql`
         # sponsors: [Sponsor]!
     }
 
+    input CitizenInputType {
+        cid: ID!
+        firstnames: [String]
+        lastnames: [String]
+        emails: [String]
+        telephones: [String]
+        photos: [String]
+        birthdate: DateTime
+        birthplace: String
+        address: String
+        # createdAt: DateTime!
+        # updatedAt: DateTime!
+    }
+
+    input CandidateInputType {
+        lead: CitizenInputType!
+        assistant: CitizenInputType!
+    }
+
     type Query {
-        ipsum: String
+        getLoremIpsum: String
+
         getCandidateById(id:ID!): Candidate!
+
         # getCandidateByCid(cid:ID!): Candidate!
         # getCandidateByName(name: String!): Candidate!
         # getCandidateByEmail(email: String!): Candidate!
+
         getCandidates: [Candidate]!
     }
 
     type Mutation {
         createNothing(nothing: String): String
+
         createCandidate(
-            firstnames: [String], 
-            lastnames: [String], 
-            emails: [String],
-            telephones: [String],
-            birthdate: DateTime,
-            birthplace: String,
-            address: String
+            candidate: CandidateInputType
         ): Candidate!
-        
+
+        createCandidateUsingRavip(
+            candidate: CandidateInputType
+        ): Candidate!
+
+        createRandomCandidateWithRavip(
+            candidate: CandidateInputType
+        ): Candidate!
     }
 
 `;

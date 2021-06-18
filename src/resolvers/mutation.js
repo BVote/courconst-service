@@ -1,35 +1,59 @@
+require('dotenv').config()
 const Faker = require("faker");
+const fetch = require("isomorphic-fetch");
 const gravatar = require("../utils/gravatar");
 const { getDummyCandidate } = require("../utils/dummy");
+
 Faker.locale = "fr";
 
 
 module.exports = {
     createCandidate: async (parents, args, { models }) => {
+        const { lead, assistant } = args.candidate;
+        return models.Candidate.create({ lead:lead, assistant:assistant });
+    },
 
-        const { firstnames, lastnames, emails, photos, telephones, birthdate, birthplace, address } = getDummyCandidate();
+    createCandidateUsingRavip: async (parents, args, { models }) => {
+        return "501 not implemented";
+    }, 
 
-        const citizen =  await models.Candidate.create({
-            firstnames,
-            lastnames,
-            emails,
-            photos,
-            telephones,
-            birthdate,
-            birthplace,
-            address,
-            // firstnames: args.identity.firstnames,
-            // lastnames: args.identity.lastnames,
-            // emails: args.identity.emails,
-            // photos: args.identity.photos,
-            // telephones: args.identity.telephones,
-            // birthdate: args.identity.birthdate,
-            // birthplace: args.identity.birthplace,
-            // address: args.identity.address
-        });
-        console.log(candidate);
+    createRandomCandidateWithRavip: async (parents, args, { models }) => {
+        let candidate = undefined;
+        await fetch(process.env.RAVIP_API_URI, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(
+                { query: `
+                    query {
+                        getRandomCitizen {
+                            cid
+                            firstnames
+                            lastnames
+                            emails
+                            telephones
+                            address
+                            birthdate
+                            birthplace
+                            createdAt
+                            updatedAt
+                        }
+                    }` 
+                }
+            ),
+        })
+        .then(res => res.json())
+        .then(res => {
+            const [lead, assistant] = res.data.getRandomCitizen;
+            candidate = models.Candidate.create({lead:lead, assistant:assistant});
+        })
+        .catch(error => console.error(error));
+        if(!candidate) {
+            // throw a graphql exception here
+            console.log("$candidate is undefined");
+        }
         return candidate;
     },
+
     createNothing: () => "Nothing is created"
 
 }
